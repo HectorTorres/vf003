@@ -42,19 +42,19 @@
 #define CLK 12
 #define LATCH 12
 
-#define REL1 9
-#define REL2 11
-#define REL3 5
-#define REL4 10
-#define REL5 6
-#define REL6 13
-#define REL7 19
-#define REL8 1
+#define REL1 26
+#define REL2 21
+#define REL3 20
+#define REL4 19
+#define REL5 13
+#define REL6 16
+#define REL7 5
+#define REL8 6
 
-#define RELE1 16
-#define RELE2 20
-#define RELE3 12
-#define RELE4 21
+#define RELE1 9
+#define RELE2 25
+#define RELE3 22
+#define RELE4 11
 
 #define AIR_PRESS_ALARM 4
 #define O2_PRESS_ALARM 17
@@ -687,7 +687,7 @@ void MainWindow::controlTimerFunction(){
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 /* SENSOR DE PRESIÓN */
 double MainWindow::pressureRead(){
-    uint16_t bitsA0 = uint16_t(analogRead(AD_BASE));
+    uint16_t bitsA0 = uint16_t(analogRead(AD_BASE+1));
     //qDebug() << "-------------------------" << bitsA0;
     //double kPaSensor = (double(bitsA0));
     double kPaSensor = 0.0033*(double(bitsA0))*1.08*0.96*1.07*0.86 - 7.6136+2.6-0.9+2.19;
@@ -727,7 +727,7 @@ double MainWindow::volRead(double flowIn){
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 /* SENSOR DE O2 */  //Max 7500 O2  // Max aire 1500
 double MainWindow::o2Read(){
-    uint16_t bitsA1 = uint16_t(analogRead(AD_BASE+3));
+    uint16_t bitsA1 = uint16_t(analogRead(AD_BASE+2));
     //qDebug() << "Bits O2: " << bitsA1;
     //double o2Sensor = double(bitsA1)*0.012625418 + 0.309364;  // GDL
     double o2Sensor = ((double(bitsA1)*0.0155 + 3.9887)*1.037 - 2.5862-4.8+0.4+2)*0.92;    // CDMX
@@ -738,12 +738,12 @@ double MainWindow::o2Read(){
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 /* MIN PRESSURE REGULADORES */
 double MainWindow::pressSairRead(){
-    uint16_t pressSair = uint16_t(analogRead(AD_BASE+2));
+    uint16_t pressSair = uint16_t(analogRead(AD_BASE+3));
      return double(pressSair);
 }
 
 double MainWindow::pressSo2Read(){
-    uint16_t pressSo2 = uint16_t(analogRead(AD_BASE+1));
+    uint16_t pressSo2 = uint16_t(analogRead(AD_BASE+0));
      return double(pressSo2);
 }
 
